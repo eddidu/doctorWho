@@ -1,0 +1,33 @@
+{
+  "name": "doctorWho",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "start:dev": "nodemon ./bin/www",
+    "build": "browserify ./client/main.js > ./public/javascripts/bundle.js",
+    "test": "mocha --recursive"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "jade": "~1.11.0",
+    "jquery": "^2.1.4",
+    "mongoose": "^4.3.3",
+    "morgan": "~1.6.1",
+    "request": "^2.67.0",
+    "serve-favicon": "~2.3.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "mockery": "^1.4.0",
+    "nodemon": "^1.8.1",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  }
+}
