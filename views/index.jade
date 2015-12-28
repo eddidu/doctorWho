@@ -1,51 +1,53 @@
 extends layout
 
 block content
-  nav(class='navbar navbar-inverse navbar-static-top' role='navigation')
-    div.navbar-header
-      button(type='button', class='navbar-toggle collapsed', data-toggle='collapse', data-target='.navbar-collapse')
+  nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
        span.sr-only Toggle navigation
        span.icon-bar
        span.icon-bar
        span.icon-bar
-      a(class='navbar-brand', ref='home', href='#') DoctorWho
+      a.navbar-brand(ref='home', href='#') DoctorWho
 
-    div.collapse.navbar-collapse
-      div.col-sm-5.col-md-5.pull-right
+    .collapse.navbar-collapse
+      .col-sm-5.col-md-5.pull-right
         form.navbar-form
-          div.input-group
-            input(type='text', class='form-control', placeholder='Enter a zipcode to search', name='search', id='search')
-            div.input-group-btn
-              button(id='btn-search', class='btn btn-default', type='button')
+          .input-group
+            input#search.form-control(type='text', placeholder='Enter a zipcode to search', name='search')
+            .input-group-btn
+              button.btn.btn-default(id='btn-search', type='button')
                 i.glyphicon.glyphicon-search
-              button(
-                class='btn btn-primary', type='button', 
-                data-toggle='modal', data-target='#adv-search-modal'
-              ) Advanced
+              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#adv-search-modal') Advanced
+
   section
-    div#map
+    .sidebar(style='display: none;')
+      .list      
+
+  section
+    #map
 
   // move to modal.jade
   section
-    div(id='adv-search-modal', class='modal fade', role='dialog')
-      div.modal-dialog
-        div.modal-content
-          div.modal-header
-            button(type='button', class='close', data-dismiss='modal') &times;
+    div.modal.fade(id='adv-search-modal', role='dialog')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal') &times;
             h4.modal-title Advanced Search
-          div.modal-body
+          .modal-body
             form(role=form)
-              div.row
-                div.form-group.col-sm-10.col-md-10
+              .row
+                .form-group.col-sm-10.col-md-10
                   label Specialty
-                  select(
-                    id='specialty', class='selectpicker form-control input-sm', title='Choose a specialty',
+                  select#specialty.selectpicker.form-control.input-sm(
+                    title='Choose a specialty',
                     data-dropup-auto='false', data-live-search='true'
                   )
-              div.row
-                div.form-group.col-sm-6.col-md-6
+              .row
+                .form-group.col-sm-6.col-md-6
                   label zipcode
-                  input(type='text', id='zipcode' name='zipcode', maxlength='5', class='form-control', placeholder='Enter a zipcode')
-          div.modal-footer
-            button(type='button', id='btn-adv-search', class='btn btn-primary') Find
-            button(type='button', class='btn btn-default', data-dismiss='modal') Close
+                  input#zipcode.form-control(type='text', name='zipcode', maxlength='5', placeholder='Enter a zipcode')
+          .modal-footer
+            button#btn-adv-search.btn.btn-primary(type='button') Find
+            button.btn.btn-default(type='button', data-dismiss='modal') Close

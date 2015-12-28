@@ -2,7 +2,7 @@ var $ = require('jquery');
 
 var MarkerView = {
   popupContent:  function(doctor) {
-  	var name = [doctor.first_name, doctor.last_name].join(' ');
+  	var name = [doctor.last_name, doctor.first_name].join(', ');
   	var primarySpecialty = doctor.primary_specialty;
   	var address = [doctor.location.address, doctor.location.city, doctor.location.zipcode].join(', ');
   	var phone = doctor.location.phone;

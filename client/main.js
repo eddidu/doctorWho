@@ -26,6 +26,7 @@ $(function() {
   $inputMainSearch = $('#search');
   $inputSpecialty = $('#specialty');
   $inputZipcode = $('#zipcode');
+  $sidebar = $('.sidebar');
 
   // enable scroll selectbox for mobile
   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
@@ -40,22 +41,44 @@ $(function() {
   // initialize the map
   L.mapbox.accessToken = 'pk.eyJ1IjoiZWRkaWR1IiwiYSI6ImNpaWV5YXpsbTAxajB1M2tzYXZyZ2VuN2kifQ.RLcGUgUEw1C0E4ENFhOcAQ';
   var map = L.mapbox.map('map', 'mapbox.streets', {
-    scrollWheelZoom: false
+    scrollWheelZoom: false, 
+    zoomControl: false
   }).setView(center, 5);
-  var markerLayer = L.mapbox.featureLayer().addTo(map);
-  markerLayer.on('layeradd', function(e) {
-    var marker = e.layer;
-    var doctor = marker.feature.properties.doctor;
-    var popupContent = MarkerView.popupContent(doctor);
-    // http://leafletjs.com/reference.html#popup
-    marker.bindPopup(popupContent, {
-      closeButton: false,
-      minWidth: 200
+  new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+  var markerGroupLayer = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    zoomToBoundsOnClick: false  
+  }).addTo(map);
+  markerGroupLayer.on('clusterclick', function (a) {
+    map.fireEvent('click');
+
+    var latlng = a.latlng;
+    var cluster = a.layer;
+    var childMarkers = cluster.getAllChildMarkers();
+    var $list = $('.list'); 
+    $list.empty();
+
+    $.each(childMarkers, function(index, childMarker) {
+      var doctor = childMarker.feature.properties.doctor;
+      var name = [doctor.last_name, doctor.first_name].join(', ');
+      var primarySpecialty = doctor.primary_specialty;
+      var phone = doctor.location.phone;
+
+      // TODO: move to view
+      var $item = $('<a></a>').addClass('list-item').attr('href', '#');
+      $('<h5></h5>').addClass('list-item-heading').text(name).appendTo($item);
+      $('<p>').addClass('list-item-text').text(primarySpecialty).appendTo($item);
+      $('<p>').addClass('list-item-text').text(phone).appendTo($item);
+
+      $item.appendTo($list);
     });
+    $sidebar.show();
+    $('body').trigger('open:sidebar');
   });
 
   /* event handlers */
-  $('body').on('taxonomyFetched', function(e, taxonomy) {
+  $('body').on('taxonomy:update', function(e, taxonomy) {
     if(taxonomy.length == 0) {
       // TODO: use bootstrap modal
       alert('taxonomy not found!');
@@ -67,7 +90,7 @@ $(function() {
     $inputSpecialty.selectpicker('refresh');
   });
 
-  $('body').on('doctorsFetched', function(e, doctors) {
+  $('body').on('doctors:update', function(e, doctors) {
     $('#adv-search-modal').modal('hide');
 
     if(doctors.length == 0) {
@@ -77,8 +100,26 @@ $(function() {
     }    
 
     var markers = Marker.loadFrom(doctors);
-    markerLayer.setGeoJSON(markers);
-    map.fitBounds(markerLayer.getBounds());
+
+    var geoJsonLayer = L.geoJson(markers, {
+      onEachFeature: function (feature, layer) {
+        var doctor = feature.properties.doctor;
+        var popupContent = MarkerView.popupContent(doctor);      
+        layer.bindPopup(popupContent, {
+          closeButton: false,
+          minWidth: 200
+        });
+        layer.on('click', function(e) {
+          $sidebar.hide();
+        });
+        $('body').on('open:sidebar', function(e) {
+          layer.closePopup();
+        });
+      }
+    });
+
+    markerGroupLayer.clearLayers().addLayer(geoJsonLayer);
+    map.fitBounds(markerGroupLayer.getBounds())
   });
 
   $inputMainSearch.keydown(function(e){ 
@@ -98,6 +139,8 @@ $(function() {
   });
 
   $btnSearch.on('click', function(e) {
+    $sidebar.hide();
+
     var input = $inputMainSearch.val();
     $inputMainSearch.val('');
 
@@ -123,6 +166,8 @@ $(function() {
   });
 
   $btnAdvSearch.on('click', function(e) {
+    $sidebar.hide();
+
     var zipcode = $inputZipcode.val();
     var specialty = $inputSpecialty.val();
     $inputZipcode.val('');
@@ -147,6 +192,10 @@ $(function() {
       // TODO: use bootstrap modal
       alert('geocode failed!');
     });
+  });
+
+  map.on('click', function(e) {
+    $sidebar.hide();
   });
 
   $inputSpecialty.on('click', function(e) {

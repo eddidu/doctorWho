@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www",
-    "build": "browserify ./client/main.js > ./public/javascripts/bundle.js",
+    "star": "node ./bin/www",
+    "start:dev": "npm run watch && nodemon --ext js,jade ./bin/www",
+    "build": "browserify ./client/main.js -o ./public/javascripts/bundle.js",
+    "watch": "npm run watch:client & npm run watch-server",
+    "watch-server": "nodemon --ext js,jade ./bin/www",
+    "watch:client": "watchify ./client/main.js -o ./public/javascripts/bundle.js -v",
     "test": "mocha --recursive"
   },
   "dependencies": {
@@ -28,6 +31,7 @@
     "mockery": "^1.4.0",
     "nodemon": "^1.8.1",
     "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "watchify": "^3.6.1"
   }
 }
