@@ -20,3 +20,14 @@ block content
 
     section.row
       #map
+
+  #alert-modal.modal.fade(role='dialog', style='display: none;')
+    .modal-dialog(style='margin-top: 100px;')
+      .modal-content
+        .modal-header(style='background-color: #790202; color: #F7F7F7;')
+          button.close(type='button', data-dismiss='modal') ×
+          h4.modal-title Alert
+        .modal-body
+          p Some text in the modal.
+        .modal-footer(style='text-align: center;')
+          button.btn.btn-danger(type='button', data-dismiss='modal') Close

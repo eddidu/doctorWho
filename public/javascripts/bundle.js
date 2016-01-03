@@ -37,6 +37,8 @@ $(function() {
   $inputSpecialty = $('#input-specialty');
   $sidebar = $('.sidebar');
   $list = $sidebar.children('.list');
+  $modal = $('#alert-modal');
+  $modalBody = $modal.find('.modal-body');
 
   // enable scroll selectbox for mobile
   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
@@ -66,8 +68,8 @@ $(function() {
   /* event handlers */
   $('body').on('taxonomy:update', function(e, taxonomy) {
     if(taxonomy.length == 0) {
-      // TODO: use bootstrap modal
-      alert('taxonomy not found!');
+      $modalBody.text('Taxonomy not found');
+      $modal.modal('show');
       return false;
     }
     $.each(taxonomy, function(index, code) {
@@ -78,8 +80,8 @@ $(function() {
 
   $('body').on('doctors:update', function(e, doctors) {
     if(doctors.length == 0) {
-      // TODO: use bootstrap modal
-      alert('no match found!');
+      $modalBody.text('No match found');
+      $modal.modal('show');
       return false;
     }
 
@@ -97,10 +99,8 @@ $(function() {
         var address = [doctor.location.address, doctor.location.city, doctor.location.zipcode].join(', ');
         var phone = doctor.location.phone;
 
-        var popupContent = MarkerView.popupContent(doctor);
-
         // list item
-        // TODO: move to model
+        // TODO: move to view
         var $item = $('<a></a>').addClass('list-item').attr('href', '#');
         $('<h5></h5>').addClass('list-item-heading').text(name).appendTo($item);
         $('<p>').addClass('list-item-text').text(primarySpecialty).appendTo($item);
@@ -114,6 +114,8 @@ $(function() {
           // TODO: if current zoom level < maxZoom, then zoom in?
           if (!layer._icon) layer.__parent.spiderfy();
           //layer.openPopup();
+
+          var popupContent = MarkerView.popupContent(doctor);
 
           var popup = L.popup({
             closeButton: false,
@@ -150,15 +152,13 @@ $(function() {
   });
 
   $btnSearch.on('click', function(e) {
-    //$sidebar.hide();
-
     var input = $inputSearch.val();
     $inputSearch.val('');
 
     var result = validator.validateZipcode(input);
     if(!result) {
-      // TODO: use bootstrap modal
-      alert('invalid zipcode. should be 5 digits');
+      $modalBody.text('Invalid zipcode. Should be 5 digits');
+      $modal.modal('show');
       return false;
     }
 
@@ -171,14 +171,14 @@ $(function() {
     var promise = Geocoder.geocode(input);
     promise.done(function(data) {
       if(data.length == 0) {
-        // TODO: use bootstrap modal
-        alert('no match found for ' + input);
+        $modalBody.text('no match found for ' + input);
+        $modal.modal('show');
         return false;
       }
       Doctor.fetch({center: [data[0].lat, data[0].lon], specialty: specialty});
     }).fail(function() {
-      // TODO: use bootstrap modal
-      alert('geocode failed!');
+      $modalBody.text('Geocode failed');
+      $modal.modal('show');
     }); 
   });
 
