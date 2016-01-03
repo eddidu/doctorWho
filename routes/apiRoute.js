@@ -1,7 +1,6 @@
 var express = require('express');
 var _ = require('underscore');
 var queryService = require('../services/queryService');
-var Doctor = require('../models/doctorModel');
 
 var router = express.Router();
 
@@ -9,6 +8,7 @@ router.get('/', function(req, res, next) {
   res.send('available apis: ["taxonomy", "doctors"]');
 });
 
+// TODO: deprecated
 router.get('/taxonomy', function(req, res, next) {
   var promise = queryService.getSpecialties();
   promise.then(function(taxonomy) {

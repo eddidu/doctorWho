@@ -13,6 +13,8 @@ block content
             .input-group-btn
               select#input-specialty.selectpicker(data-width='100%', style='display: none;')
                 option All
+                each specialty in specialties
+                  option= specialty
             input#input-search.form-control(style='border-left-width: 0;', type='text', placeholder='Enter a zipcode')
             span.input-group-btn
               button#btn-search.btn.btn-default(type='button')
@@ -28,6 +30,5 @@ block content
           button.close(type='button', data-dismiss='modal') ×
           h4.modal-title Alert
         .modal-body
-          p Some text in the modal.
         .modal-footer(style='text-align: center;')
           button.btn.btn-danger(type='button', data-dismiss='modal') Close

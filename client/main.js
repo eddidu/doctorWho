@@ -33,8 +33,6 @@ $(function() {
     $inputSpecialty.selectpicker('mobile');
   }
 
-  Taxonomy.fetch();
-
   // TODO: centenr <---- user location
   var center = [39.372033, -103.332486];
 
@@ -54,18 +52,6 @@ $(function() {
   }).addTo(map);
 
   /* event handlers */
-  $('body').on('taxonomy:update', function(e, taxonomy) {
-    if(taxonomy.length == 0) {
-      $modalBody.text('Taxonomy not found');
-      $modal.modal('show');
-      return false;
-    }
-    $.each(taxonomy, function(index, code) {
-      $inputSpecialty.append($('<option></option>').text(code).val(code));
-    });
-    $inputSpecialty.selectpicker('refresh');
-  });
-
   $('body').on('doctors:update', function(e, doctors) {
     if(doctors.length == 0) {
       $modalBody.text('No match found');
@@ -154,7 +140,6 @@ $(function() {
     if(specialty.toLowerCase() == 'all') {
       specialty = null;
     }
-
 
     var promise = Geocoder.geocode(input);
     promise.done(function(data) {
