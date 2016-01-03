@@ -29,6 +29,7 @@ router.get('/doctors', function(req, res, next) {
   // address, name
   params.query;
   var specialty = params.specialty;
+
   params.address;
   params.zipcode;
   params.country;

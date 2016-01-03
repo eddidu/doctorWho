@@ -1,53 +1,22 @@
 extends layout
 
 block content
-  nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
-    .navbar-header
-      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-       span.sr-only Toggle navigation
-       span.icon-bar
-       span.icon-bar
-       span.icon-bar
-      a.navbar-brand(ref='home', href='#') DoctorWho
-
-    .collapse.navbar-collapse
-      .col-sm-5.col-md-5.pull-right
-        form.navbar-form
+  .container-fluid
+    section.row
+      .sidebar.col-md-3
+        .heading
+          h3 DoctorWho
+        .list
+      .topbar.col-md-offset-3.col-md-4
+        form
           .input-group
-            input#search.form-control(type='text', placeholder='Enter a zipcode to search', name='search')
             .input-group-btn
-              button.btn.btn-default(id='btn-search', type='button')
-                i.glyphicon.glyphicon-search
-              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#adv-search-modal') Advanced
+              select#input-specialty.selectpicker(data-width='100%', style='display: none;')
+                option All
+            input#input-search.form-control(style='border-left-width: 0;', type='text', placeholder='Enter a zipcode')
+            span.input-group-btn
+              button#btn-search.btn.btn-default(type='button')
+                span.glyphicon.glyphicon-search
 
-  section
-    .sidebar(style='display: none;')
-      .list      
-
-  section
-    #map
-
-  // move to modal.jade
-  section
-    div.modal.fade(id='adv-search-modal', role='dialog')
-      .modal-dialog
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal') &times;
-            h4.modal-title Advanced Search
-          .modal-body
-            form(role=form)
-              .row
-                .form-group.col-sm-10.col-md-10
-                  label Specialty
-                  select#specialty.selectpicker.form-control.input-sm(
-                    title='Choose a specialty',
-                    data-dropup-auto='false', data-live-search='true'
-                  )
-              .row
-                .form-group.col-sm-6.col-md-6
-                  label zipcode
-                  input#zipcode.form-control(type='text', name='zipcode', maxlength='5', placeholder='Enter a zipcode')
-          .modal-footer
-            button#btn-adv-search.btn.btn-primary(type='button') Find
-            button.btn.btn-default(type='button', data-dismiss='modal') Close
+    section.row
+      #map

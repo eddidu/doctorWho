@@ -8,13 +8,33 @@ body {
 
 
 /* side bar */
+.topbar {
+  position: absolute;
+  z-index: 10;
+  margin-top: 10px;
+}
+
+.topbar .input-group button, .topbar .input-group input {
+  background: rgba(39, 39, 39, 0.83);
+  color: white;
+  border-color: #3C3B3B;
+}
+
+.topbar .input-group button:active, .topbar button:hover {
+  background: rgba(39, 39, 39, 0.83);
+  color: white;
+}
+
 .sidebar {
-  width: 20%;
   position: absolute;
   z-index: 10;
   background: rgba(39, 39, 39, 0.83);
-  height: 100%;  
-  overflow:hidden;
+  height: 100%;
+  padding-right: 0;
+}
+
+.sidebar .heading {
+  color: white;
 }
 
 .list {
@@ -26,13 +46,12 @@ body {
 
 .list .list-item {
   display:block;
-  /*border-bottom:1px solid #2B2626;*/
   padding:10px;
   text-decoration:none;
   color: #fff;
 }
 
-.list .list-item:active, .list .list-item:hover {
+.list .list-item.active, .list .list-item:active, .list .list-item:hover {
   background-color: #027B1C;
 }
 
@@ -61,7 +80,14 @@ body {
 
 /* map */
 #map {
-  min-height: 650px;    
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* leaflet */
+.leaflet-control-zoom {
+  background: rgba(39, 39, 39, 0.83);
 }
 
 .leaflet-popup-content .marker-title {
