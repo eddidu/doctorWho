@@ -6,8 +6,21 @@ body {
   margin-right: 0px;
 }
 
+::-webkit-scrollbar {
+  width:10px;
+  height:10px;
+  border-left:0;
+  background:rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-track {
+  background:none;
+}
+::-webkit-scrollbar-thumb {
+  background:#148EF7;
+  border-radius:0;
+}
 
-/* side bar */
+/* controlls */
 .topbar {
   position: absolute;
   z-index: 10;
@@ -63,21 +76,6 @@ body {
   margin-bottom: 0;
 }
 
-
-::-webkit-scrollbar {
-  width:10px;
-  height:10px;
-  border-left:0;
-  background:rgba(0,0,0,0.1);
-}
-::-webkit-scrollbar-track {
-  background:none;
-}
-::-webkit-scrollbar-thumb {
-  background:#148EF7;
-  border-radius:0;
-}
-
 /* map */
 #map {
   width: 100%;
@@ -108,45 +106,4 @@ body {
 
 .leaflet-popup-content p {
   margin-bottom: 2px;
-}
-
-/* nav bar */
-.navbar {
-  margin-bottom: 0px;
-}
-
-.navbar .navbar-brand {
-  color: #fff;
-  font-size: 22px;
-  padding-left: 25px;
-}
-
-.navbar-form .input-group{
-  width: 100%;
-}
-
-/* adv-search modal */
-#adv-search-modal {
-  top: 20%;
-}
-
-@media screen and (min-width: 460px) {
-  #adv-search-modal .modal-dialog {
-    width: 450px;
-  }
-}
-
-#adv-search-modal .modal-header {
-  background-color: #4A5466;
-  color: #F5F5F5;  
-}
-
-#adv-search-modal .modal-body {
-  background-color: #F6F3F9;
-}
-
-#adv-search-modal .modal-footer {
-  background-color: #F6F3F9;
-  border-top: none;
-  text-align: center;
 }
