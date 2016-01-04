@@ -143,18 +143,3 @@ body {
     margin-left: 25%;
   }
 }
-
-/*
-@media screen and (min-width: 1000px) {
-  .sidebar {
-    height: 100%;
-    margin-top: 0;
-  }
-  .sidebar .heading {
-    display: none;
-  }
-  .list {
-    height: 85%;
-  }
-}
-*/
