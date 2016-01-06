@@ -11,10 +11,10 @@ block content
         form
           .input-group
             .input-group-btn
-              select#input-specialty.selectpicker(data-width='100%', style='display: none;')
+              select#input-specialtyGroup.selectpicker(data-width='100%', style='display: none;')
                 option All
-                each specialty in specialties
-                  option= specialty
+                each group in specialtyGroups
+                  option= group.name
             input#input-search.form-control(style='border-left-width: 0;', type='text', placeholder='Enter a zipcode')
             span.input-group-btn
               button#btn-search.btn.btn-default(type='button')

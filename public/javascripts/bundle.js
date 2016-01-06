@@ -34,7 +34,7 @@ $(function() {
   // jquery selectors
   $btnSearch = $('#btn-search');
   $inputSearch = $('#input-search');
-  $inputSpecialty = $('#input-specialty');
+  $inputSpecialty = $('#input-specialtyGroup');
   $sidebar = $('.sidebar');
   $list = $sidebar.children('.list');
   $modal = $('#alert-modal');
@@ -80,8 +80,9 @@ $(function() {
         var doctor = feature.properties.doctor;
 
         // move to model funcition
-        var name = [doctor.last_name, doctor.first_name].join(', ');
-        var primarySpecialty = doctor.primary_specialty;
+        var name = [doctor.lastName, doctor.firstName].join(', ');
+        var primary = doctor.specialty.primary;
+        var secondaries = doctor.specialty.secondaries;
         var address = [doctor.location.address, doctor.location.city, doctor.location.zipcode].join(', ');
         var phone = doctor.location.phone;
 
@@ -89,7 +90,8 @@ $(function() {
         // TODO: move to view
         var $item = $('<a></a>').addClass('list-item').attr('href', '#');
         $('<h5></h5>').addClass('list-item-heading').text(name).appendTo($item);
-        $('<p>').addClass('list-item-text').text(primarySpecialty).appendTo($item);
+        $('<p>').addClass('list-item-text').text(primary).appendTo($item);
+        $('<p>').addClass('list-item-text').text(secondaries.join(', ')).appendTo($item);
         $('<p>').addClass('list-item-text').text(address).appendTo($item);
         $('<p>').addClass('list-item-text').text(phone).appendTo($item);
 
@@ -246,14 +248,16 @@ var $ = require('jquery');
 
 var MarkerView = {
   popupContent:  function(doctor) {
-  	var name = [doctor.last_name, doctor.first_name].join(', ');
-  	var primarySpecialty = doctor.primary_specialty;
+  	var name = [doctor.lastName, doctor.firstName].join(', ');
+  	var primary = doctor.specialty.primary;
+    var secondaries = doctor.specialty.secondaries;
   	var address = [doctor.location.address, doctor.location.city, doctor.location.zipcode].join(', ');
   	var phone = doctor.location.phone;
 
   	var $wrapper = $('<wrapper></wrapper>');
   	$('<div></div>').addClass('marker-title').text(name).appendTo($wrapper);
-  	$('<p></p>').text(primarySpecialty).appendTo($wrapper);
+  	$('<p></p>').text(primary).appendTo($wrapper);
+    $('<p></p>').text(secondaries.join(', ')).appendTo($wrapper);
   	$('<p></p>').text(address).appendTo($wrapper);
   	$('<p></p>').text(phone).appendTo($wrapper);
 

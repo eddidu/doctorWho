@@ -6,6 +6,6 @@ var taxonomySchema = new Schema({
   name: String
 });
 
-var Taxonomy = mongoose.model('Taxonomy', taxonomySchema, 'taxonomy');
+var Taxonomy = mongoose.model('Taxonomy', taxonomySchema, 'specialtyGroups');
 
 module.exports = Taxonomy;

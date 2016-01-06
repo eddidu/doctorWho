@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var doctorSchema = new Schema({
   _id: Number,
-  name: String,
+  firstName: String,
+  lastName: String,
   location: {
     address: String,
     city: String,
@@ -12,8 +13,11 @@ var doctorSchema = new Schema({
     phone: Number,
     geopoint: {type: [Number], index: '2d'}
   },
-  primary_specialty: String,
-  specialties: [String]
+  specialty: {
+    group: String,
+    primary: String,
+    secondaries: [String]
+  }
 });
 
 var Doctor = mongoose.model('Doctor', doctorSchema, 'doctors');

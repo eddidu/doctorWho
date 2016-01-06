@@ -12,7 +12,7 @@ var app = express();
 
 // db
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/doctordb');
+var db = mongoose.connect('mongodb://localhost/doctorwho');
 
 // view engine
 app.set('views', path.join(__dirname, 'views'));
