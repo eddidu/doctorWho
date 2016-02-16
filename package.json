@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "star": "node ./bin/www",
+    "start": "node ./bin/www",
     "start:dev": "npm run watch && nodemon --ext js,jade ./bin/www",
     "build": "browserify ./client/main.js -o ./public/javascripts/bundle.js",
     "watch": "npm run watch:client & npm run watch-server",

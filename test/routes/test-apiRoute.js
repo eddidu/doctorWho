@@ -1,12 +1,13 @@
-var chai = require("chai");
-var sinon = require("sinon");
-var sinonChai = require("sinon-chai");
+var chai = require('chai');
+var sinon = require('sinon');
+var sinonChai = require('sinon-chai');
 var mockery = require('mockery');
 
 chai.should();
 chai.use(sinonChai);
 
 describe('apiRoute', function() {
+
   var req, res, router;
   var spy = sinon.spy();
   var stub = sinon.stub();
@@ -54,7 +55,7 @@ describe('apiRoute', function() {
       req = {url: '/taxonomy', method: 'GET'};
       res.json = spy;
 
-      mockService.getSpecialties = stub;
+      mockService.getSpecialtyGroups = stub;
       var mockResponse = [
         {'name': 'name1'}, 
         {'name': 'name2'}, 

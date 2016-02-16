@@ -5,12 +5,12 @@ var queryService = require('../services/queryService');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.send('available apis: ["taxonomy", "doctors"]');
+  res.send('available apis: ["taxonomy", "doctors"]\n');
 });
 
 // TODO: deprecated
 router.get('/taxonomy', function(req, res, next) {
-  var promise = queryService.getSpecialties();
+  var promise = queryService.getSpecialtyGroups();
   promise.then(function(taxonomy) {
     // TODO: move to the model?
     var getName = function(item) {
